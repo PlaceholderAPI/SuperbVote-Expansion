@@ -75,7 +75,7 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
 		
 		switch (identifier) {
 		case "votes":
-			return String.valueOf(pl.getVoteStorage().getVotes(p.getUniqueId()));
+			return String.valueOf(pl.getVoteStorage().getVotes(p.getUniqueId()).getVotes());
 		case "has_voted":
 			return pl.getVoteStorage().hasVotedToday(p.getUniqueId()) ? PlaceholderAPIPlugin.booleanTrue() : PlaceholderAPIPlugin.booleanFalse();
 		}

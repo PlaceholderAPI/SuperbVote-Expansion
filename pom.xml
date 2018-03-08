@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.extendedclip.papi.expansion.vault</groupId>
   <artifactId>template-expansion</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <name>PAPI-Expansion-SuperbVote</name>
   <description>PlaceholderAPI expansion for SuperbVote placeholders</description>
     

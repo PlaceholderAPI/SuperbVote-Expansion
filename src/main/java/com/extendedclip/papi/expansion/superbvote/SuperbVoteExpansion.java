@@ -85,8 +85,12 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
 			try {
 				int index = Integer.parseInt(identifier);
 				List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
+
+				if (top.isEmpty()) {
+					return "";
+				}
 				
-				OfflinePlayer pl = Bukkit.getOfflinePlayer(top.get(index).getUuid());
+				OfflinePlayer pl = Bukkit.getOfflinePlayer(top.get(0).getUuid());
 				
 				if (pl == null) {
 					return "";
@@ -103,7 +107,10 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
 			try {
 				int index = Integer.parseInt(identifier);
 				List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
-				return String.valueOf(top.get(index).getVotes());
+				if (top.isEmpty()) {
+					return "";
+				}
+				return String.valueOf(top.get(0).getVotes());
 			} catch (NumberFormatException ex) {
 				return "invalid index number";
 			}

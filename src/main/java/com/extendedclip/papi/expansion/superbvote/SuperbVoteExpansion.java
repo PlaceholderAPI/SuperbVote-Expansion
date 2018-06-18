@@ -67,7 +67,7 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
 	}
 
 	@Override
-	public String onPlaceholderRequest(Player p, String identifier) {
+	public String onRequest(OfflinePlayer p, String identifier) {
 
 		if (p == null) {
 			return "";
@@ -119,4 +119,9 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
 		return null;
 	}
 
+	// to provide support for PAPI 2.8 or lower
+	@Override
+	public String onPlaceholderRequest(Player p, String args) {
+		return onRequest(p, args);
+	}
 }

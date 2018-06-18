@@ -22,106 +22,102 @@ package com.extendedclip.papi.expansion.superbvote;
 
 import io.minimum.minecraft.superbvote.SuperbVote;
 import io.minimum.minecraft.superbvote.util.PlayerVotes;
+import java.util.List;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class SuperbVoteExpansion extends PlaceholderExpansion {
 
-	private SuperbVote pl;
-	
-	private final String VERSION = getClass().getPackage().getImplementationVersion();
-	
-	@Override
-	public boolean register() {
-		pl = (SuperbVote) Bukkit.getPluginManager().getPlugin("SuperbVote");
-		if (pl == null) {
-			return false;
-		}
-		return super.register();
-	}
-	
-	@Override
-	public String getAuthor() {
-		return "clip";
-	}
+  private SuperbVote pl;
 
-	@Override
-	public String getIdentifier() {
-		return "superbvote";
-	}
+  private final String VERSION = getClass().getPackage().getImplementationVersion();
 
-	@Override
-	public String getPlugin() {
-		return "SuperbVote";
-	}
+  @Override
+  public boolean register() {
+    pl = (SuperbVote) Bukkit.getPluginManager().getPlugin("SuperbVote");
+    if (pl == null) {
+      return false;
+    }
+    return super.register();
+  }
 
-	@Override
-	public String getVersion() {
-		return VERSION;
-	}
+  @Override
+  public String getAuthor() {
+    return "clip";
+  }
 
-	@Override
-	public String onRequest(OfflinePlayer p, String identifier) {
+  @Override
+  public String getIdentifier() {
+    return "superbvote";
+  }
 
-		if (p == null) {
-			return "";
-		}
-		
-		switch (identifier) {
-		case "votes":
-			return String.valueOf(pl.getVoteStorage().getVotes(p.getUniqueId()).getVotes());
-		case "has_voted":
-			return pl.getVoteStorage().hasVotedToday(p.getUniqueId()) ? PlaceholderAPIPlugin.booleanTrue() : PlaceholderAPIPlugin.booleanFalse();
-		}
-		
-		if (identifier.startsWith("top_voter_name_")) {
-			identifier = identifier.replace("top_voter_name_", "");
-			try {
-				int index = Integer.parseInt(identifier);
-				List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
+  @Override
+  public String getPlugin() {
+    return "SuperbVote";
+  }
 
-				if (top.isEmpty()) {
-					return "";
-				}
-				
-				OfflinePlayer pl = Bukkit.getOfflinePlayer(top.get(0).getUuid());
-				
-				if (pl == null) {
-					return "";
-				}
-				
-				return pl.getName();
-			} catch (NumberFormatException ex) {
-				return "invalid index number";
-			}
-		}
-		
-		if (identifier.startsWith("top_voter_votes_")) {
-			identifier = identifier.replace("top_voter_votes_", "");
-			try {
-				int index = Integer.parseInt(identifier);
-				List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
-				if (top.isEmpty()) {
-					return "";
-				}
-				return String.valueOf(top.get(0).getVotes());
-			} catch (NumberFormatException ex) {
-				return "invalid index number";
-			}
-		}
-		
-		return null;
-	}
+  @Override
+  public String getVersion() {
+    return VERSION;
+  }
 
-	// to provide support for PAPI 2.8 or lower
-	@Override
-	public String onPlaceholderRequest(Player p, String args) {
-		return onRequest(p, args);
-	}
+  public String onRequest(OfflinePlayer p, String identifier) {
+    if (p == null) {
+      return "";
+    }
+    switch (identifier) {
+      case "votes":
+        return String.valueOf(pl.getVoteStorage().getVotes(p.getUniqueId()).getVotes());
+      case "has_voted":
+        return pl.getVoteStorage().hasVotedToday(p.getUniqueId()) ? PlaceholderAPIPlugin
+            .booleanTrue() : PlaceholderAPIPlugin.booleanFalse();
+    }
+
+    if (identifier.startsWith("top_voter_name_")) {
+      identifier = identifier.replace("top_voter_name_", "");
+      try {
+        int index = Integer.parseInt(identifier);
+        List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
+
+        if (top.isEmpty()) {
+          return "";
+        }
+
+        OfflinePlayer pl = Bukkit.getOfflinePlayer(top.get(0).getUuid());
+
+        if (pl == null) {
+          return "";
+        }
+
+        return pl.getName();
+      } catch (NumberFormatException ex) {
+        return "invalid index number";
+      }
+    }
+
+    if (identifier.startsWith("top_voter_votes_")) {
+      identifier = identifier.replace("top_voter_votes_", "");
+      try {
+        int index = Integer.parseInt(identifier);
+        List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
+        if (top.isEmpty()) {
+          return "";
+        }
+        return String.valueOf(top.get(0).getVotes());
+      } catch (NumberFormatException ex) {
+        return "invalid index number";
+      }
+    }
+
+    return null;
+  }
+
+  // to provide support for PAPI 2.8 or lower
+  @Override
+  public String onPlaceholderRequest(Player p, String args) {
+    return onRequest(p, args);
+  }
 }

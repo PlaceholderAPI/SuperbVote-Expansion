@@ -39,7 +39,7 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
 	
 	@Override
 	public boolean register() {
-		pl = SuperbVote.getPlugin();
+		pl = (SuperbVote) Bukkit.getPluginManager().getPlugin("SuperbVote");
 		if (pl == null) {
 			return false;
 		}

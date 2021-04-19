@@ -80,7 +80,7 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
       identifier = identifier.replace("top_voter_name_", "");
       try {
         int index = Integer.parseInt(identifier);
-        List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
+        List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(1, index);
 
         if (top.isEmpty()) {
           return "";
@@ -102,7 +102,7 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
       identifier = identifier.replace("top_voter_votes_", "");
       try {
         int index = Integer.parseInt(identifier);
-        List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(index, 1);
+        List<PlayerVotes> top = pl.getVoteStorage().getTopVoters(1, index);
         if (top.isEmpty()) {
           return "";
         }

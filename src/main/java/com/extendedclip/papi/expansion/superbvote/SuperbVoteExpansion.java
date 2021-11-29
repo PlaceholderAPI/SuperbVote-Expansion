@@ -65,17 +65,6 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
   }
 
   public String onRequest(OfflinePlayer p, String identifier) {
-    if (p == null) {
-      return "";
-    }
-    switch (identifier) {
-      case "votes":
-        return String.valueOf(pl.getVoteStorage().getVotes(p.getUniqueId()).getVotes());
-      case "has_voted":
-        return pl.getVoteStorage().hasVotedToday(p.getUniqueId()) ? PlaceholderAPIPlugin
-            .booleanTrue() : PlaceholderAPIPlugin.booleanFalse();
-    }
-
     if (identifier.startsWith("top_voter_name_")) {
       identifier = identifier.replace("top_voter_name_", "");
       try {
@@ -112,6 +101,16 @@ public class SuperbVoteExpansion extends PlaceholderExpansion {
       }
     }
 
+    if (p == null) {
+      return "";
+    }
+    switch (identifier) {
+      case "votes":
+        return String.valueOf(pl.getVoteStorage().getVotes(p.getUniqueId()).getVotes());
+      case "has_voted":
+        return pl.getVoteStorage().hasVotedToday(p.getUniqueId()) ? PlaceholderAPIPlugin
+            .booleanTrue() : PlaceholderAPIPlugin.booleanFalse();
+    }
     return null;
   }
 
